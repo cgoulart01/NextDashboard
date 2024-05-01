@@ -38,10 +38,13 @@ redirect('/dashboard/invoices');
   // console.log(rawFormData);
 }
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+function substituirVirgulaPorPonto(valor: string): string {
+  return valor.replace(/,/g, '.');
+}
 export async function updateInvoice(id: string, formData: FormData) {
   const { customerId, amount, status } = UpdateInvoice.parse({
     customerId: formData.get('customerId'),
-    amount: parseInt(formData.get('amount'),10),
+    amount:substituirVirgulaPorPonto( formData.get('amount')),
     status: formData.get('status'),
   });
  
